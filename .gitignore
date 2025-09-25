@@ -1,52 +1,40 @@
-# Cache and logs (Symfony2)
-/app/cache/*
-/app/logs/*
-!app/cache/.gitkeep
-!app/logs/.gitkeep
+# Project-wide ignores
+.DS_Store
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.env
+.env.local
+.env.*
 
-# Email spool folder
-/app/spool/*
+# Backend (Symfony)
+/backend/var/
+!/backend/var/.gitkeep
+/backend/vendor/
+/backend/.env
+/backend/.env.local
+/backend/.env.test
+/backend/.phpunit.result.cache
+/backend/public/bundles/
+/backend/.php-cs-fixer.cache
+/backend/config/jwt/private.pem
+/backend/config/jwt/public.pem
 
-# Cache, session files and logs (Symfony3)
-/var/cache/*
-/var/logs/*
-/var/sessions/*
-!var/cache/.gitkeep
-!var/logs/.gitkeep
-!var/sessions/.gitkeep
+# Frontend (Next.js)
+/frontend/node_modules/
+/frontend/.next/
+/frontend/out/
+/frontend/coverage/
+/frontend/.env.local
+/frontend/.env.test
+/frontend/.turbo/
 
-# Logs (Symfony4)
-/var/log/*
-!var/log/.gitkeep
+# Root node modules
+/node_modules/
 
-# Parameters
-/app/config/parameters.yml
-/app/config/parameters.ini
+# Docker artefacts
+*.pid
+.docker/cache
 
-# Managed by Composer
-/app/bootstrap.php.cache
-/var/bootstrap.php.cache
-/bin/*
-!bin/console
-!bin/symfony_requirements
-/vendor/
-
-# Assets and user uploads
-/web/bundles/
-/web/uploads/
-
-# PHPUnit
-/app/phpunit.xml
-/phpunit.xml
-
-# Build data
-/build/
-
-# Composer PHAR
-/composer.phar
-
-# Backup entities generated with doctrine:generate:entities command
-**/Entity/*~
-
-# Embedded web-server pid file
-/.web-server-pid
+# Logs
+*.log

@@ -1,0 +1,9 @@
+/vendor/
+/var/
+/.env
+/.env.local
+/.env.dev
+/.env.test
+/public/bundles/
+/node_modules/
+.php-cs-fixer.cache

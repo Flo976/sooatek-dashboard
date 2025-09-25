@@ -1,0 +1,69 @@
+version: '3.9'
+
+services:
+  database:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: sooatekapp
+      MYSQL_USER: sooatek
+      MYSQL_PASSWORD: sooatek
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - mysqldata:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+  redis:
+    image: redis:7
+    command: redis-server --appendonly yes
+    restart: unless-stopped
+    volumes:
+      - redisdata:/data
+    ports:
+      - "6379:6379"
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    working_dir: /srv/app
+    restart: unless-stopped
+    depends_on:
+      - database
+      - redis
+    environment:
+      APP_ENV: dev
+      APP_SECRET: dev-secret
+      DATABASE_URL: mysql://sooatek:sooatek@database:3306/sooatekapp
+      REDIS_URL: redis://redis:6379
+    volumes:
+      - ./backend:/srv/app
+      - ./backend/var:/srv/app/var
+      - ./backend/vendor:/srv/app/vendor
+      - ./backend/config/jwt:/srv/app/config/jwt
+    ports:
+      - "8000:8000"
+    command: php -d variables_order=EGPCS -S 0.0.0.0:8000 -t public
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    working_dir: /app
+    restart: unless-stopped
+    depends_on:
+      - backend
+    environment:
+      NODE_ENV: development
+      NEXT_PUBLIC_API_URL: http://localhost:8000/api/v1
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    command: npm run dev -- --hostname 0.0.0.0
+
+volumes:
+  mysqldata:
+  redisdata:

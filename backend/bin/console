@@ -1,0 +1,23 @@
+#!/usr/bin/env php
+<?php
+
+use App\Kernel;
+use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Symfony\Component\ErrorHandler\Debug;
+
+if (!in_array(PHP_SAPI, ['cli', 'phpdbg', 'embed'], true)) {
+    throw new RuntimeException('This application must be run as a CLI application.');
+}
+
+require dirname(__DIR__) . '/vendor/autoload.php';
+
+$env = $_SERVER['APP_ENV'] ?? 'dev';
+$debug = ($_SERVER['APP_DEBUG'] ?? '1') !== '0';
+
+if ($debug) {
+    Debug::enable();
+}
+
+$kernel = new Kernel($env, (bool) $debug);
+$application = new Application($kernel);
+$application->run();

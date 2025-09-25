@@ -1,0 +1,7 @@
+framework:
+    mailer:
+        dsn: '%env(MAILER_DSN)%'
+        envelope:
+            sender: 'noreply@sooatek.test'
+        headers:
+            From: 'Sooatek Support <noreply@sooatek.test>'

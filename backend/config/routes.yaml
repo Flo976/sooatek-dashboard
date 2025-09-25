@@ -1,0 +1,13 @@
+controllers:
+    resource: '../src/Controller/'
+    type: attribute
+
+api_platform:
+    resource: '.'
+    type: api_platform
+
+when@dev:
+    framework_router_dev:
+        resource: '../src/Controller/'
+        type: attribute
+        prefix: /

@@ -1,0 +1,24 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        bind:
+            string $environment: '%kernel.environment%'
+
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+
+    App\Command\:
+        resource: '../src/Command/'
+        tags: ['console.command']
+
+parameters:
+    app.jwt_ttl: '%env(int:JWT_TTL)%'
+    app.jwt_refresh_ttl: '%env(int:JWT_REFRESH_TTL)%'
+    app.rate_limit_login_attempts: '%env(int:RATE_LIMIT_LOGIN_ATTEMPTS)%'
+    app.rate_limit_login_interval: '%env(string:RATE_LIMIT_LOGIN_INTERVAL)%'
+    app.password_reset_token_ttl: '%env(int:PASSWORD_RESET_TOKEN_TTL)%'

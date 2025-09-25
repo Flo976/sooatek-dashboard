@@ -1,0 +1,9 @@
+doctrine:
+    dbal:
+        driver: 'pdo_sqlite'
+        dbname: '%kernel.project_dir%/var/data.db'
+        url: 'sqlite:///%kernel.project_dir%/var/data.db'
+    orm:
+        auto_generate_proxy_classes: true
+        naming_strategy: doctrine.orm.naming_strategy.underscore
+        auto_mapping: true
