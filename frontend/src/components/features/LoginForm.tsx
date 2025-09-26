@@ -1,11 +1,11 @@
 'use client';
 
 import { useState } from 'react';
+import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
-import { login } from '@/lib/api/auth';
 import { LoginSchema, loginSchema } from '@/lib/schemas/auth';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
@@ -26,8 +26,19 @@ export default function LoginForm() {
   const onSubmit = async (values: LoginSchema) => {
     setError(null);
     try {
-      await login(values);
+      const result = await signIn('credentials', {
+        email: values.email,
+        password: values.password,
+        redirect: false
+      });
+
+      if (result?.error) {
+        setError(result.error);
+        return;
+      }
+
       router.push('/dashboard');
+      router.refresh();
     } catch (err) {
       const message = (err as { data?: { message?: string } }).data?.message ?? 'Unable to login. Please check your credentials and try again.';
       setError(message);

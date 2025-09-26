@@ -16,8 +16,8 @@ use Symfony\Component\Uid\Uuid;
 class PasswordResetToken
 {
     #[ORM\Id]
-    #[ORM\Column(type: 'uuid', unique: true)]
-    private Uuid $id;
+    #[ORM\Column(type: 'guid', unique: true)]
+    private string $id;
 
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(name: 'user_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
@@ -37,11 +37,11 @@ class PasswordResetToken
 
     public function __construct()
     {
-        $this->id = Uuid::v4();
+        $this->id = (string) Uuid::v4();
         $this->createdAt = new DateTimeImmutable();
     }
 
-    public function getId(): Uuid
+    public function getId(): string
     {
         return $this->id;
     }

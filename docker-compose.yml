@@ -1,4 +1,3 @@
-version: '3.9'
 
 services:
   database:
@@ -12,7 +11,7 @@ services:
     volumes:
       - mysqldata:/var/lib/mysql
     ports:
-      - "3306:3306"
+      - "3307:3306"
 
   redis:
     image: redis:7
@@ -37,13 +36,20 @@ services:
       APP_SECRET: dev-secret
       DATABASE_URL: mysql://sooatek:sooatek@database:3306/sooatekapp
       REDIS_URL: redis://redis:6379
+      JWT_SECRET_KEY: /srv/app/config/jwt/private.pem
+      JWT_PUBLIC_KEY: /srv/app/config/jwt/public.pem
+      JWT_PASSPHRASE: sooatek-jwt-passphrase-2024
+      JWT_TOKEN_TTL: 3600
+      JWT_REFRESH_TOKEN_TTL: 2592000
+      RATE_LIMITER_LOGIN_ATTEMPTS: 5
+      RATE_LIMITER_LOGIN_INTERVAL: "15 minutes"
     volumes:
       - ./backend:/srv/app
       - ./backend/var:/srv/app/var
       - ./backend/vendor:/srv/app/vendor
       - ./backend/config/jwt:/srv/app/config/jwt
     ports:
-      - "8000:8000"
+      - "8001:8000"
     command: php -d variables_order=EGPCS -S 0.0.0.0:8000 -t public
 
   frontend:
@@ -56,13 +62,14 @@ services:
       - backend
     environment:
       NODE_ENV: development
-      NEXT_PUBLIC_API_URL: http://localhost:8000/api/v1
+      NEXT_PUBLIC_API_URL: http://localhost:8001/api/v1
+      INTERNAL_API_URL: http://backend:8000/api/v1
     volumes:
       - ./frontend:/app
       - /app/node_modules
     ports:
       - "3000:3000"
-    command: npm run dev -- --hostname 0.0.0.0
+    command: sh -c "npm install && npm run dev -- --hostname 0.0.0.0"
 
 volumes:
   mysqldata:

@@ -11,10 +11,7 @@ const customJestConfig = {
     '^@/(.*)$': '<rootDir>/src/$1'
   },
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
-  testEnvironment: 'jest-environment-jsdom',
-  transform: {
-    '^.+\\.(ts|tsx)$': ['ts-jest', { tsconfig: '<rootDir>/tsconfig.json' }]
-  }
+  testEnvironment: 'jest-environment-jsdom'
 };
 
 export default createJestConfig(customJestConfig);

@@ -6,6 +6,9 @@ yarn-error.log*
 .env
 .env.local
 .env.*
+!.env.example
+!backend/.env.example
+!frontend/.env.example
 
 # Backend (Symfony)
 /backend/var/

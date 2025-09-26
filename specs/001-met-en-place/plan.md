@@ -32,6 +32,9 @@
 ## Summary
 Building a secure authentication system with email/password login that redirects to a protected dashboard. The application uses a modern web stack with separate frontend (Next.js + shadcn) and backend (Symfony 7 + API Platform) communicating via JWT-authenticated REST APIs. Implements account security features including password complexity, account lockout after 5 failed attempts, session timeout, and password reset via email.
 
+### In-Progress Adjustment
+- Backend login and registration will be handled by a dedicated `AuthenticationService` coupled with an `AuthController` exposing `/api/v1/auth/login` and `/api/v1/auth/register`. The controller will issue JWT access tokens via LexikJWT and persist refresh tokens, while also logging security events.
+
 ## Technical Context
 **Language/Version**: PHP 8.2+ (Symfony 7), TypeScript 5.x (Next.js 14+)
 **Primary Dependencies**: Symfony 7, API Platform 3.x, Next.js 14, React 18, shadcn/ui

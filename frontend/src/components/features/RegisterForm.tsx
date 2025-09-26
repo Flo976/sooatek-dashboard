@@ -35,6 +35,7 @@ export default function RegisterForm() {
       await registerUser({
         email: values.email,
         password: values.password,
+        passwordConfirmation: values.confirmPassword,
         firstName: values.firstName || undefined,
         lastName: values.lastName || undefined
       });

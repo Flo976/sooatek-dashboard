@@ -1,23 +1,24 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
 import LoginForm from '@/components/features/LoginForm';
-import { login } from '@/lib/api/auth';
 
 jest.mock('next/navigation', () => ({
   useRouter: jest.fn()
 }));
 
-jest.mock('@/lib/api/auth', () => ({
-  login: jest.fn()
+jest.mock('next-auth/react', () => ({
+  signIn: jest.fn()
 }));
 
 describe('LoginForm', () => {
   const push = jest.fn();
+  const refresh = jest.fn();
 
   beforeEach(() => {
-    (useRouter as jest.Mock).mockReturnValue({ push });
-    (login as jest.Mock).mockResolvedValue({ accessToken: 'token', refreshToken: 'refresh' });
+    (useRouter as jest.Mock).mockReturnValue({ push, refresh });
+    (signIn as jest.Mock).mockResolvedValue({ error: null });
   });
 
   afterEach(() => {
@@ -36,11 +37,15 @@ describe('LoginForm', () => {
 
     fireEvent.click(screen.getByRole('button', { name: /sign in/i }));
 
-    await waitFor(() => expect(login).toHaveBeenCalledWith({
-      email: 'user@example.com',
-      password: 'Password123!'
-    }));
+    await waitFor(() =>
+      expect(signIn).toHaveBeenCalledWith('credentials', {
+        email: 'user@example.com',
+        password: 'Password123!',
+        redirect: false
+      })
+    );
 
     expect(push).toHaveBeenCalledWith('/dashboard');
+    expect(refresh).toHaveBeenCalled();
   });
 });

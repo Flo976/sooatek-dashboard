@@ -18,13 +18,15 @@ class AuditLog
 {
     public const ACTION_LOGIN_SUCCESS = 'login_success';
     public const ACTION_LOGIN_FAILURE = 'login_failure';
+    public const ACTION_REGISTER = 'register';
+    public const ACTION_TOKEN_REFRESH = 'token_refresh';
     public const ACTION_PASSWORD_RESET_REQUEST = 'password_reset_request';
     public const ACTION_PASSWORD_RESET_CONFIRM = 'password_reset_confirm';
     public const ACTION_LOGOUT = 'logout';
 
     #[ORM\Id]
-    #[ORM\Column(type: 'uuid', unique: true)]
-    private Uuid $id;
+    #[ORM\Column(type: 'guid', unique: true)]
+    private string $id;
 
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(name: 'user_id', referencedColumnName: 'id', nullable: true, onDelete: 'SET NULL')]
@@ -47,11 +49,11 @@ class AuditLog
 
     public function __construct()
     {
-        $this->id = Uuid::v4();
+        $this->id = (string) Uuid::v4();
         $this->createdAt = new DateTimeImmutable();
     }
 
-    public function getId(): Uuid
+    public function getId(): string
     {
         return $this->id;
     }

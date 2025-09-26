@@ -1,23 +1,9 @@
 import apiClient from './client';
 
-export interface LoginRequest {
-  email: string;
-  password: string;
-}
-
-export interface LoginResponse {
-  accessToken: string;
-  refreshToken: string;
-}
-
-export async function login(payload: LoginRequest): Promise<LoginResponse> {
-  const { data } = await apiClient.post<LoginResponse>('/auth/login', payload);
-  return data;
-}
-
 export interface RegisterRequest {
   email: string;
   password: string;
+  passwordConfirmation: string;
   firstName?: string | null;
   lastName?: string | null;
 }

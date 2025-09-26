@@ -74,10 +74,10 @@
 **CRITICAL: These tests MUST be written and MUST FAIL before ANY implementation**
 
 ### Backend API Contract Tests
-- [ ] T021 [P] Write contract test for POST /api/v1/auth/login in backend/tests/Functional/Auth/LoginTest.php
-- [ ] T022 [P] Write contract test for POST /api/v1/auth/refresh in backend/tests/Functional/Auth/RefreshTest.php
-- [ ] T023 [P] Write contract test for POST /api/v1/auth/logout in backend/tests/Functional/Auth/LogoutTest.php
-- [ ] T024 [P] Write contract test for POST /api/v1/auth/register in backend/tests/Functional/Auth/RegisterTest.php
+- [x] T021 [P] Write contract test for POST /api/v1/auth/login in backend/tests/Functional/Auth/LoginTest.php
+- [x] T022 [P] Write contract test for POST /api/v1/auth/refresh in backend/tests/Functional/Auth/RefreshTest.php
+- [x] T023 [P] Write contract test for POST /api/v1/auth/logout in backend/tests/Functional/Auth/LogoutTest.php
+- [x] T024 [P] Write contract test for POST /api/v1/auth/register in backend/tests/Functional/Auth/RegisterTest.php
 - [ ] T025 [P] Write contract test for POST /api/v1/auth/password-reset in backend/tests/Functional/Auth/PasswordResetRequestTest.php
 - [ ] T026 [P] Write contract test for POST /api/v1/auth/password-reset/confirm in backend/tests/Functional/Auth/PasswordResetConfirmTest.php
 - [ ] T027 [P] Write contract test for GET /api/v1/dashboard in backend/tests/Functional/DashboardTest.php

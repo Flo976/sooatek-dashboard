@@ -1,7 +1,7 @@
 import type { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
-import apiClient from '@/lib/api/client';
+import internalApiClient from '@/lib/api/internal-client';
 
 export const authOptions: NextAuthOptions = {
   session: {
@@ -23,19 +23,30 @@ export const authOptions: NextAuthOptions = {
         }
 
         try {
-          const { data } = await apiClient.post('/auth/login', {
+          const { data } = await internalApiClient.post('/auth/login', {
             email: credentials.email,
             password: credentials.password
           });
 
-          return {
-            id: data?.user?.id ?? credentials.email,
-            email: data?.user?.email ?? credentials.email,
-            name: data?.user?.name ?? credentials.email,
-            accessToken: data?.accessToken,
-            refreshToken: data?.refreshToken
-          } as any;
+          console.log('NextAuth - API Response:', data);
+
+          if (!data?.accessToken || !data?.user) {
+            console.log('NextAuth - Missing token or user in response');
+            return null;
+          }
+
+          const result = {
+            id: data.user.id,
+            email: data.user.email,
+            name: `${data.user.firstName || ''} ${data.user.lastName || ''}`.trim() || data.user.email,
+            accessToken: data.accessToken,
+            refreshToken: data.refreshToken
+          };
+
+          console.log('NextAuth - Returning user:', result);
+          return result as any;
         } catch (error) {
+          console.log('NextAuth - Auth error:', error);
           return null;
         }
       }

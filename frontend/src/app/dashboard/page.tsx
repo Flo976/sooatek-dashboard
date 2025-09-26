@@ -1,13 +1,12 @@
 import { redirect } from 'next/navigation';
-import { getServerSession } from 'next-auth';
 
 import Dashboard from '@/components/features/Dashboard';
 import UserMenu from '@/components/features/UserMenu';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { authOptions } from '@/lib/auth/options';
+import { auth } from '@/auth';
 
 export default async function DashboardPage() {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
 
   if (!session) {
     redirect('/login');

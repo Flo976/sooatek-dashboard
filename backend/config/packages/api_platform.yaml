@@ -1,13 +1,15 @@
 api_platform:
     title: 'Sooatek Authentication API'
     version: '1.0.0'
-    default_operation_path_resolver: 'api_platform.operation_path_resolver.dash'
     mapping:
         paths:
             - '%kernel.project_dir%/src/Entity'
     formats:
         json:
             mime_types: ['application/json']
+    patch_formats:
+        json:
+            mime_types: ['application/merge-patch+json']
     swagger:
         versions: [3]
     openapi:
