@@ -1,9 +1,9 @@
-import type { NextAuthOptions } from 'next-auth';
+import NextAuthOptions from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
 import internalApiClient from '@/lib/api/internal-client';
 
-export const authOptions: NextAuthOptions = {
+export const authOptions: any = {
   session: {
     strategy: 'jwt'
   },
@@ -53,7 +53,7 @@ export const authOptions: NextAuthOptions = {
     })
   ],
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user }: { token: any; user: any }) {
       if (user) {
         token.accessToken = (user as any).accessToken;
         token.refreshToken = (user as any).refreshToken;
@@ -61,7 +61,7 @@ export const authOptions: NextAuthOptions = {
 
       return token;
     },
-    async session({ session, token }) {
+    async session({ session, token }: { session: any; token: any }) {
       if (token?.accessToken) {
         (session as any).accessToken = token.accessToken;
       }
