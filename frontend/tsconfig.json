@@ -35,6 +35,9 @@
       "@/providers/*": [
         "src/providers/*"
       ],
+      "@/types/*": [
+        "src/types/*"
+      ],
       "@/auth": [
         "src/auth"
       ]

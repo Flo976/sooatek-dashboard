@@ -1,0 +1,167 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Création d'un prospect",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Nom de la formation",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {}
+                ]
+              },
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Nom",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Prenom",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Email",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Telephone",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Adresse ligne 1",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Adresse ligne 2"
+            },
+            {
+              "fieldLabel": "Code Postal",
+              "fieldType": "number",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Ville",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Fonction du bénéficiaire"
+            },
+            {
+              "fieldLabel": "Durée en heures de la formation",
+              "fieldType": "number",
+              "placeholder": "ex: 84",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Nombre de participants",
+              "fieldType": "number",
+              "placeholder": "ex: 4",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Déroulé Horaire",
+              "fieldType": "textarea",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Tarif appliqué en € TTC",
+              "fieldType": "number",
+              "placeholder": "ex: 4500",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Date de début",
+              "fieldType": "date",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Date de fin",
+              "fieldType": "date",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Type de client",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Societe"
+                  },
+                  {
+                    "option": "Individu"
+                  }
+                ]
+              },
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Siret",
+              "fieldType": "number",
+              "placeholder": "ex: 123 456 789 00000"
+            },
+            {
+              "fieldLabel": "Nom de la société"
+            }
+          ]
+        },
+        "options": {
+          "appendAttribution": false,
+          "buttonLabel": "Envoyer",
+          "path": "formialab-client",
+          "customCss": ""
+        }
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "a80a5a8b-2a7c-473c-9cad-6b0dc0a09baf",
+      "name": "Création d'un client",
+      "webhookId": "4027db65-48b3-4b38-8a55-27c9d1986148"
+    }
+  ],
+  "connections": {
+    "Création d'un client": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "pinData": {
+    "Création d'un client": [
+      {
+        "Nom de la formation": "Formation n8n",
+        "Nom": "Didelot",
+        "Prenom": "Florent",
+        "Email": "florent@sooatek.com",
+        "Telephone": "0767084834",
+        "Adresse ligne 1": "410 route des crêtes",
+        "Adresse ligne 2": "",
+        "Code Postal": 24210,
+        "Ville": "Montagnac",
+        "Fonction du bénéficiaire": "",
+        "Durée en heures de la formation": 84,
+        "Nombre de participants": 4,
+        "Déroulé Horaire": "Jour 1 - 9h00-17h00 : Introduction à l’IA créative et premiers cas d’usage\r\nJour 2 - 9h00-17h00 : Scénarisation automatisée, moodboards et storyboards IA\r\nJour 3 - 9h00-17h00 : Simulation de tournage avec assistants IA\r\n",
+        "Tarif appliqué en € TTC": 4500,
+        "Date de début": "2025-09-24",
+        "Date de fin": "2025-09-30",
+        "Type de client": "Societe",
+        "Siret": 12345678901234,
+        "Nom de la société": "Sooatek",
+        "submittedAt": "2025-09-24T08:28:54.780+02:00",
+        "formMode": "test"
+      }
+    ]
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "4f37ed130b593bbb8c5eb9895ded19cabfb9a0bdb9f63b2d8a17474999e124f3"
+  }
+}

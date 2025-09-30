@@ -13,7 +13,9 @@ import {
   Database,
   Shield,
   FileText,
-  Bell
+  Bell,
+  UserPlus,
+  Contact
 } from "lucide-react"
 
 import {
@@ -49,6 +51,21 @@ const data = {
           title: "Reports",
           url: "/dashboard/reports",
           icon: FileText,
+        },
+      ],
+    },
+    {
+      title: "Prospects",
+      items: [
+        {
+          title: "Créer un prospect",
+          url: "/dashboard/prospects/create",
+          icon: UserPlus,
+        },
+        {
+          title: "Liste des prospects",
+          url: "/dashboard/prospects",
+          icon: Contact,
         },
       ],
     },

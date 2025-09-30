@@ -1,0 +1,101 @@
+openapi: 3.0.3
+info:
+  title: Formations Search API
+  version: 1.0.0
+  description: API for searching training formations catalog
+
+servers:
+  - url: https://formialab.app.n8n.cloud
+    description: Production webhook service
+
+paths:
+  /webhook/aed07f64-2937-44cc-80dd-1e7079ecc36a:
+    get:
+      summary: Search formations
+      description: Search for training formations with autocomplete
+      operationId: searchFormations
+      parameters:
+        - name: query
+          in: query
+          required: true
+          description: Search term (minimum 2 characters)
+          schema:
+            type: string
+            minLength: 2
+        - name: limit
+          in: query
+          required: false
+          description: Maximum number of results
+          schema:
+            type: integer
+            default: 20
+            maximum: 100
+      responses:
+        '200':
+          description: Successful search
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - formations
+                  - total
+                properties:
+                  formations:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Formation'
+                  total:
+                    type: integer
+                    description: Total count of matching formations
+                  hasMore:
+                    type: boolean
+                    description: Indicates if more results are available
+        '400':
+          description: Invalid request (e.g., query too short)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    Formation:
+      type: object
+      required:
+        - id
+        - nom
+      properties:
+        id:
+          type: string
+          description: Unique identifier
+        nom:
+          type: string
+          description: Formation name/title
+        description:
+          type: string
+          description: Optional description
+        categorie:
+          type: string
+          description: Category or type
+        dureeStandard:
+          type: integer
+          description: Standard duration in hours
+
+    Error:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          description: Error message
+        code:
+          type: string
+          description: Error code for debugging

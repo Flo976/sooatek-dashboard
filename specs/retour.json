@@ -1,0 +1,16 @@
+[
+  {
+    "id": 3,
+    "createdAt": "2025-09-27T13:09:30.813Z",
+    "updatedAt": "2025-09-27T13:09:30.813Z",
+    "id_drive": "1tIzGlNalk1sLfSE8fCZn55HF_N53LfeCFhsHWsXhSOU",
+    "formation": "Action ! L’IA au service du réalisateur"
+  },
+  {
+    "id": 4,
+    "createdAt": "2025-09-27T13:16:09.970Z",
+    "updatedAt": "2025-09-27T13:16:09.970Z",
+    "id_drive": "1TXucHxrGAeOKB9vxZKOOnR5mF9zDBQoZQvBbRQsQJYQ",
+    "formation": "Test de formation 2"
+  }
+]

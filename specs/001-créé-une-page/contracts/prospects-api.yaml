@@ -1,0 +1,199 @@
+openapi: 3.0.3
+info:
+  title: Prospect Creation API
+  version: 1.0.0
+  description: API for submitting new prospect information
+
+servers:
+  - url: https://formialab.app.n8n.cloud
+    description: Production webhook service
+
+paths:
+  /webhook-test/3b0313cf-77a9-4954-9c43-c63681d63388:
+    post:
+      summary: Create prospect
+      description: Submit new prospect information to the system
+      operationId: createProspect
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProspectRequest'
+      responses:
+        '201':
+          description: Prospect created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProspectResponse'
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    ProspectRequest:
+      type: object
+      required:
+        - nom
+        - prenom
+        - email
+        - telephone
+        - adresseLigne1
+        - codePostal
+        - ville
+        - formationId
+        - formationNom
+        - dureeHeures
+        - nombreParticipants
+        - derouleHoraire
+        - tarifTTC
+        - dateDebut
+        - dateFin
+        - typeClient
+      properties:
+        nom:
+          type: string
+          maxLength: 100
+          description: Last name
+        prenom:
+          type: string
+          maxLength: 100
+          description: First name
+        email:
+          type: string
+          format: email
+          description: Email address
+        telephone:
+          type: string
+          pattern: '^\+?[1-9]\d{1,14}$'
+          description: International phone format
+        adresseLigne1:
+          type: string
+          maxLength: 200
+          description: Address line 1
+        adresseLigne2:
+          type: string
+          maxLength: 200
+          description: Address line 2 (optional)
+        codePostal:
+          type: string
+          pattern: '^\d{5}$'
+          description: 5-digit postal code
+        ville:
+          type: string
+          maxLength: 100
+          description: City
+        formationId:
+          type: string
+          description: Selected formation ID
+        formationNom:
+          type: string
+          description: Formation name for display
+        dureeHeures:
+          type: integer
+          minimum: 1
+          maximum: 9999
+          description: Duration in hours
+        nombreParticipants:
+          type: integer
+          minimum: 1
+          maximum: 999
+          description: Number of participants
+        derouleHoraire:
+          type: string
+          maxLength: 5000
+          description: Schedule details
+        tarifTTC:
+          type: number
+          minimum: 0
+          maximum: 999999
+          description: Price including tax in EUR
+        dateDebut:
+          type: string
+          format: date
+          description: Start date
+        dateFin:
+          type: string
+          format: date
+          description: End date (must be >= dateDebut)
+        typeClient:
+          type: string
+          enum: [Societe, Individu]
+          description: Client type
+        siret:
+          type: string
+          pattern: '^\d{14}$'
+          description: SIRET number (required if typeClient is Societe)
+        nomSociete:
+          type: string
+          maxLength: 200
+          description: Company name (required if typeClient is Societe)
+        fonctionBeneficiaire:
+          type: string
+          maxLength: 100
+          description: Beneficiary function (optional)
+        submittedAt:
+          type: string
+          format: date-time
+          description: Submission timestamp (auto-generated)
+        formMode:
+          type: string
+          enum: [test, production]
+          default: production
+          description: Form submission mode
+
+    ProspectResponse:
+      type: object
+      required:
+        - success
+      properties:
+        success:
+          type: boolean
+          description: Operation success indicator
+        id:
+          type: string
+          description: Created prospect ID
+        message:
+          type: string
+          description: Success message
+
+    ValidationError:
+      type: object
+      required:
+        - success
+        - errors
+      properties:
+        success:
+          type: boolean
+          default: false
+        message:
+          type: string
+          description: General error message
+        errors:
+          type: object
+          additionalProperties:
+            type: string
+          description: Field-specific validation errors
+
+    Error:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          description: Error message
+        code:
+          type: string
+          description: Error code for debugging
